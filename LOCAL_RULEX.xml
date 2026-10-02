@@ -1,0 +1,13 @@
+  Location: /var/ossec/etc/rules/local_rules.xml
+  Note: Wazuh usually flags a failed logon as Low severity (Rule 60122). 
+  I wrote this custom rule to catch anyone trying to brute-force my honeypot 
+  account (HackerTest) and immediately bump the severity to Critical (15).
+
+
+<group name="windows, custom,">
+  <rule id="100001" level="15">
+    <if_sid>60122</if_sid>
+    <match>HackerTest</match>
+    <description>CRITICAL: Targeted brute-force attempt against honeypot account (HackerTest)</description>
+  </rule>
+</group>

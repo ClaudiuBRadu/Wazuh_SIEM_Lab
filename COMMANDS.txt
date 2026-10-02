@@ -1,0 +1,17 @@
+Lab Commands & Payloads:
+
+A quick reference sheet for the commands I used during the setup and testing phases of this lab.
+
+Network & Firewall (Ubuntu):
+Opening the required ports for the Wazuh agent to communicate with the cloud manager:
+bash
+sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 1514 -j ACCEPT
+sudo iptables -I INPUT 6 -m state --state NEW -p tcp --dport 1515 -j ACCEPT
+sudo netfilter-persistent save
+
+Attack Simulation (Windows PowerShell)
+
+-Clearing the Event Viewer (Evasion) with wevtutil cl Security.
+-Creating and removing a hidden persistence account: net user HackerTest StrongPass!123 /add, net user HackerTest /delete.
+-Triggering the Level 15 Custom Rule (Failed logon on honeypot): net use \\127.0.0.1\IPC$ /user:HackerTest "WrongPassword".
+-Triggering Windows Defender (EICAR payload): Set-Content -Path "$env:USERPROFILE\Desktop\virus_test.txt" -Value 'X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*'
